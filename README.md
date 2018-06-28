@@ -8,11 +8,9 @@ This is a basic example of a crowdsale with a brand new ERC20 token. First deplo
 - Converts payable ETH to TOKEN's directly to user
 - ETH payed to contract is forwarded to a different wallet (holds ICO funds)
 - Updateable ETH/TOKEN rate
-- Developers and Founders can allocate a specific amount of tokens to be released at later date.
 - Ability to turn on/off transfer of coins. (via sale contract)
 - Crowdsale ends on a specific block number
-- Token contrbutions will be removed from the Mint and transfered to the purchaser.
-- Users that have tokens held can release them once time has passed without owner permission. 
+- Token contrbutions will be removed from the Mint and transfered to the purchaser. 
 
 # Deploy Instructions
 
@@ -39,28 +37,4 @@ Minting Tokens call comes from the Sale contract, when the ERC20 is deployed it 
 `function mintToken(address to, uint256 amount) external returns (bool success);`
 
 Change "transfer" method from the Sale Contract. 
-`function changeTransfer(bool allowed);`
-
-### Hold Token Period
-
-The Sale Contract will allow you to hold a specific amount of tokens for an amount of time before being released directly to address. The createHoldToken function requires an address and the amount of tokens given at end of period.
-```
-function createHeldCoins() internal {
-  createHoldToken(0x4f70Dc5Da5aCf5e71988c3a8473a6D8a7E7Ba4c9, 100000000000000000000000); // 100,000
-  createHoldToken(0x323c82c7Ae55B48745f4eCcd2523450d291f2412, 250000000000000000000000); // 250,000
-}
-```
-
-You can change the amount of blocks in future to release.
-```
-function createHoldToken(address _to, uint256 amount) internal {
-...
-  heldTimeline[_to] = block.number + 200000;
-...
-}
-```
-
-Once a time period as passed, the wallet owner can do a contract call to receive the tokens. (Data: `0x6ce5b3cf`)
-```
-function releaseHeldCoins()
-```
+`function changeTransfer(bool allowed);
