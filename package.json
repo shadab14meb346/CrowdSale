@@ -21,7 +21,9 @@
   "homepage": "https://github.com/hunterlong/ethereum-ico-contract#readme",
   "dependencies": {
     "ganache-cli": "^6.1.0",
+    "openzeppelin-solidity": "1.10.0",
     "solc": "^0.4.21",
-    "truffle": "^4.1.5"
+    "truffle": "^4.1.5",
+    "truffle-hdwallet-provider": "0.0.5"
   }
 }
