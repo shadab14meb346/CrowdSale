@@ -41,9 +41,12 @@ App = {
       var SaleInstance;
   
       var account = web3.eth.defaultAccount;
+      console.log("account", account);
+      
   
         App.contracts.Sale.deployed().then(function(instance) {
         SaleInstance = instance;
+        console.log("SaleInstance", SaleInstance);
   
           return SaleInstance.getHeldCoin(account);
         }).then(function(result) {
