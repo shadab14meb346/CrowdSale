@@ -21,36 +21,39 @@ App = {
     },
   
     initContract: function() {
-      $.getJSON('Sale.json', function(data) {
+      $.getJSON('Token.json', function(data) {
         // Get the necessary contract artifact file and instantiate it with truffle-contract.
-        var SaleArtifact = data;
-        App.contracts.Sale = TruffleContract(SaleArtifact);
+        var TokenArtifact = data;
+        App.contracts.Token = TruffleContract(TokenArtifact);
   
         // Set the provider for our contract.
-        App.contracts.Sale.setProvider(App.web3Provider);
+        App.contracts.Token.setProvider(App.web3Provider);
   
-        return App.getHeldCoin();
+        return App.balanceOf();
       });
     },
   
 
   
-    getHeldCoin: function() {
+    balanceOf: function() {
       console.log('Getting held coins...');
   
-      var SaleInstance;
+      var TokenInstance;
   
       var account = web3.eth.defaultAccount;
       console.log("account", account);
       
   
-        App.contracts.Sale.deployed().then(function(instance) {
-        SaleInstance = instance;
-        console.log("SaleInstance", SaleInstance);
+        App.contracts.Token.deployed().then(function(instance) {
+        TokenInstance = instance;
+        console.log("SaleInstance", TokenInstance);
   
-          return SaleInstance.getHeldCoin(account);
+          return TokenInstance.balanceOf(account);
         }).then(function(result) {
+          console.log(result);
           balance = result.c[0];
+          
+          $("#test").text(balance);
         }).catch(function(err) {
           console.log(err.message);
         });

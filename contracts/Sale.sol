@@ -106,9 +106,4 @@ contract Sale {
         Token.changeTransfer(_allowed);
     }
 
-    // public function to get the amount of tokens held for an address
-    function getHeldCoin(address _address) public constant returns (uint256) {
-        return heldTokens[_address];
-    }
-
 }

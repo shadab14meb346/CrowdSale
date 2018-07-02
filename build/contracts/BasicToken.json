@@ -194,9 +194,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\nimport './SafeMath.sol';\n\ncontract BasicToken {\n    using SafeMath for uint256;\n    uint256 public totalSupply;\n    bool public allowTransfer;\n    function balanceOf(address _owner) constant returns (uint256 balance);\n    function transfer(address _to, uint256 _value) returns (bool success);\n    function transferFrom(address _from, address _to, uint256 _value) returns (bool success);\n    function approve(address _spender, uint256 _value) returns (bool success);\n    function allowance(address _owner, address _spender) constant returns (uint256 remaining);\n\n    event Transfer(address indexed _from, address indexed _to, uint256 _value);\n    event Approval(address indexed _owner, address indexed _spender, uint256 _value);\n}\n\ncontract StandardToken is BasicToken {\n\n    function transfer(address _to, uint256 _value) returns (bool success) {\n        require(allowTransfer);\n        require(balances[msg.sender] >= _value);\n        balances[msg.sender] -= _value;\n        balances[_to] += _value;\n        emit Transfer(msg.sender, _to, _value);\n        return true;\n    }\n\n    function transferFrom(address _from, address _to, uint256 _value) returns (bool success) {\n        require(allowTransfer);\n        require(balances[_from] >= _value && allowed[_from][msg.sender] >= _value);\n        balances[_to] += _value;\n        balances[_from] -= _value;\n        allowed[_from][msg.sender] -= _value;\n        emit Transfer(_from, _to, _value);\n        return true;\n    }\n\n    function balanceOf(address _owner) constant returns (uint256 balance) {\n        return balances[_owner];\n    }\n\n    function approve(address _spender, uint256 _value) returns (bool success) {\n        require(allowTransfer);\n        allowed[msg.sender][_spender] = _value;\n        emit Approval(msg.sender, _spender, _value);\n        return true;\n    }\n\n    function allowance(address _owner, address _spender) constant returns (uint256 remaining) {\n      return allowed[_owner][_spender];\n    }\n\n    mapping (address => uint256) balances;\n    mapping (address => mapping (address => uint256)) allowed;\n}\n\n\ncontract Token is StandardToken {\n\n    string public name = \"A20 TEST TOKEN\";\n    uint8 public decimals = 2;\n    string public symbol = \"A20T\";\n    string public version = 'A20T 0.3';\n    address public mintableAddress;\n\n    function Token(address sale_address) {\n        balances[msg.sender] = 0;\n        totalSupply = 0;\n        name = name;\n        decimals = decimals;\n        symbol = symbol;\n        mintableAddress = sale_address;\n        allowTransfer = true;\n        createTokens();\n    }\n\n    // creates all tokens 5 million\n    // this address will hold all tokens\n    // all community contrubutions coins will be taken from this address\n    function createTokens() internal {\n        uint256 total = 5000000;\n        balances[this] = total;\n        totalSupply = total;\n    }\n\n    function changeTransfer(bool allowed) external {\n        require(msg.sender == mintableAddress);\n        allowTransfer = allowed;\n    }\n\n    function mintToken(address to, uint256 amount) external returns (bool success) {\n        require(msg.sender == mintableAddress);\n        require(balances[this] >= amount);\n        balances[this] -= amount;\n        balances[to] += amount;\n        emit Transfer(this, to, amount);\n        return true;\n    }\n\n    function approveAndCall(address _spender, uint256 _value, bytes _extraData) returns (bool success) {\n        allowed[msg.sender][_spender] = _value;\n        emit Approval(msg.sender, _spender, _value);\n\n        require(_spender.call(bytes4(bytes32(keccak256(\"receiveApproval(address,uint256,address,bytes)\"))), msg.sender, _value, this, _extraData));\n        return true;\n    }\n}",
-  "sourcePath": "/home/bc/Documents/smartcontracts/CrowdSale/contracts/Token.sol",
+  "sourcePath": "/home/shadab/WORK/CrowdSaleContractEdited/CrowdSale/contracts/Token.sol",
   "ast": {
-    "absolutePath": "/home/bc/Documents/smartcontracts/CrowdSale/contracts/Token.sol",
+    "absolutePath": "/home/shadab/WORK/CrowdSaleContractEdited/CrowdSale/contracts/Token.sol",
     "exportedSymbols": {
       "BasicToken": [
         614
@@ -223,7 +223,7 @@
         "src": "0:24:3"
       },
       {
-        "absolutePath": "/home/bc/Documents/smartcontracts/CrowdSale/contracts/SafeMath.sol",
+        "absolutePath": "/home/shadab/WORK/CrowdSaleContractEdited/CrowdSale/contracts/SafeMath.sol",
         "file": "./SafeMath.sol",
         "id": 545,
         "nodeType": "ImportDirective",
@@ -5799,7 +5799,7 @@
     "src": "0:3732:3"
   },
   "legacyAST": {
-    "absolutePath": "/home/bc/Documents/smartcontracts/CrowdSale/contracts/Token.sol",
+    "absolutePath": "/home/shadab/WORK/CrowdSaleContractEdited/CrowdSale/contracts/Token.sol",
     "exportedSymbols": {
       "BasicToken": [
         614
@@ -5826,7 +5826,7 @@
         "src": "0:24:3"
       },
       {
-        "absolutePath": "/home/bc/Documents/smartcontracts/CrowdSale/contracts/SafeMath.sol",
+        "absolutePath": "/home/shadab/WORK/CrowdSaleContractEdited/CrowdSale/contracts/SafeMath.sol",
         "file": "./SafeMath.sol",
         "id": 545,
         "nodeType": "ImportDirective",
@@ -11407,5 +11407,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-07-02T07:03:56.316Z"
+  "updatedAt": "2018-07-02T09:38:41.151Z"
 }
