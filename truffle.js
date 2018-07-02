@@ -10,10 +10,9 @@ module.exports = {
       port: 8545,
       network_id: "*" // Match any network id
     },
-    ropsten: {
-      provider: new HDWalletProvider(mnemonic, "https://ropsten.infura.io/cCSn0LOLZ8M1LgcyDnjv"),
-      network_id: 3,
-      gas:5000000
+    rinkeby: {
+      provider: new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/cCSn0LOLZ8M1LgcyDnjv"),
+      network_id: 3
     }
   }
 };
