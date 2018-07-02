@@ -21,7 +21,7 @@ App = {
     },
   
     initContract: function() {
-      $.getJSON('../../Sale.json', function(data) {
+      $.getJSON('Sale.json', function(data) {
         // Get the necessary contract artifact file and instantiate it with truffle-contract.
         var SaleArtifact = data;
         App.contracts.Sale = TruffleContract(SaleArtifact);
@@ -29,16 +29,14 @@ App = {
         // Set the provider for our contract.
         App.contracts.Sale.setProvider(App.web3Provider);
   
-        return App.getBalances();
+        return App.getHeldCoin();
       });
-  
-      return App.bindEvents();
     },
   
 
   
     getHeldCoin: function() {
-      console.log('Getting balances...');
+      console.log('Getting held coins...');
   
       var SaleInstance;
   
@@ -50,8 +48,6 @@ App = {
           return SaleInstance.getHeldCoin(account);
         }).then(function(result) {
           balance = result.c[0];
-  
-          $('#TTBalance').text(balance);
         }).catch(function(err) {
           console.log(err.message);
         });
