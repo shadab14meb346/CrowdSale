@@ -11,8 +11,10 @@ module.exports = {
       network_id: "*" // Match any network id
     },
     rinkeby: {
+
       provider: new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/cCSn0LOLZ8M1LgcyDnjv"),
       network_id: 3
+
     }
   }
 };
