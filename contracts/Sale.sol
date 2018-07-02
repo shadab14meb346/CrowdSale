@@ -105,5 +105,6 @@ contract Sale {
         require(msg.sender==creator);
         Token.changeTransfer(_allowed);
     }
+    
 
 }
