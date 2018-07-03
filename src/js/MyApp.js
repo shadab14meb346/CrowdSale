@@ -51,17 +51,19 @@ App = {
       var walletAddress = "0x3B5db17376ee6d9B5874862381a3e55077E57cCe";
 
       var balance1 = web3.eth.getBalance(walletAddress, function(err, res){
+
         
-        // balance1 here for the wallet address 
-        if(err){
-          console.log(err);
-        }
-        else{
-          console.log(res);
-          balance1 = res.c[0];
-          balance1 = balance1/10000;
-          console.log("balance in ethers", balance1);
-        }
+            // balance1 here for the wallet address 
+            if(err){
+              console.log(err);
+            }
+            else{
+              console.log(res);
+              balance1 = res.c[0];
+              balance1 = balance1/10000;
+              console.log("Main address balance in ethers", balance1);
+            }
+
       }); //Will give value in.
 
      
