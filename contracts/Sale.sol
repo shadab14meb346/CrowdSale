@@ -64,7 +64,7 @@ contract Sale {
         require(msg.value>0);
         require(isFunding);
         require(block.number <= endBlock);
-        uint256 amount = (msg.value/10000000000000000) * exchangeRate;
+        uint256 amount = (msg.value/1000000000000000000) * exchangeRate;
         uint256 total = totalMinted + amount;
         require(total<=maxMintable);
         totalMinted += total;
@@ -79,7 +79,7 @@ contract Sale {
         require(msg.value>0);
         require(isFunding);
         require(block.number <= endBlock);
-        uint256 amount = msg.value * exchangeRate;
+        uint256 amount = (msg.value/1000000000000000000) * exchangeRate;
         uint256 total = totalMinted + amount;
         require(total<=maxMintable);
         totalMinted += total;
